@@ -7,9 +7,10 @@ import type { GlobeMethods } from "react-globe.gl";
 import { geoCentroid } from "d3-geo";
 import { NEUTRAL_POLYGON_CAP, distanceToHeatPolygonCap } from "@/lib/geo";
 import { getFeatureIso2 } from "@/lib/globeGeo";
-import { COUNTRIES_BY_CODE } from "@/lib/countries";
+import { COUNTRIES_BY_CODE, type Country } from "@/lib/countries";
 import type { HeidiGuess } from "@/stores/huntingHeidiStore";
 import type { LabelMode } from "@/components/hunting-heidi/HeidiWorldView";
+import { getFlagImageUrl } from "@/lib/flags";
 
 const Globe = dynamic(() => import("react-globe.gl").then((m) => m.default), {
   ssr: false,
@@ -32,6 +33,7 @@ type Props = {
   /** Show the help line under the globe (default true; parent may show a shared caption). */
   showFooter?: boolean;
   labelMode?: LabelMode;
+  foundCountry?: Country | null;
 };
 
 type GlobeLabel = {
@@ -66,7 +68,20 @@ function continentColor(code: string | null, name: string): string {
   }
 }
 
-export default function HeidiGlobe({ guesses, embedded = false, showFooter = true, labelMode = "easy" }: Props) {
+type FoundMarker = {
+  lat: number;
+  lng: number;
+  code: string;
+  name: string;
+};
+
+export default function HeidiGlobe({
+  guesses,
+  embedded = false,
+  showFooter = true,
+  labelMode = "easy",
+  foundCountry = null,
+}: Props) {
   const globeRef = useRef<GlobeMethods | undefined>(undefined);
   const containerRef = useRef<HTMLDivElement>(null);
   const [geo, setGeo] = useState<FeatureCollection | null>(null);
@@ -132,6 +147,14 @@ export default function HeidiGlobe({ guesses, embedded = false, showFooter = tru
     }
     return out;
   }, [polygonsData, labelMode]);
+
+  const foundMarker = useMemo<FoundMarker[]>(
+    () =>
+      foundCountry
+        ? [{ lat: foundCountry.lat, lng: foundCountry.lng, code: foundCountry.code, name: foundCountry.name }]
+        : [],
+    [foundCountry]
+  );
 
   const polygonCapColor = useCallback(
     (d: object) => {
@@ -240,6 +263,24 @@ export default function HeidiGlobe({ guesses, embedded = false, showFooter = tru
         labelColor={() => "rgba(255, 255, 255, 0.9)"}
         labelResolution={3}
         labelAltitude={0.012}
+        htmlElementsData={foundMarker}
+        htmlLat={(d: object) => (d as FoundMarker).lat}
+        htmlLng={(d: object) => (d as FoundMarker).lng}
+        htmlAltitude={() => 0.05}
+        htmlElement={(d: object) => {
+          const marker = d as FoundMarker;
+          const el = document.createElement("div");
+          el.innerHTML = `
+            <div style="display:flex;flex-direction:column;align-items:center;transform:translateY(-6px)">
+              <div style="height:22px;width:3px;background:#ef3e2e;border-radius:2px"></div>
+              <div style="height:14px;width:14px;border-radius:999px;background:#ef3e2e;border:2px solid #fff;box-shadow:0 1px 6px rgba(0,0,0,.35);margin-top:-3px"></div>
+              <div style="margin-top:6px;background:#fff;border:1px solid #cfd8dc;border-radius:8px;padding:2px 4px;box-shadow:0 2px 8px rgba(0,0,0,.25)">
+                <img src="${getFlagImageUrl(marker.code, 80)}" alt="Flag of ${marker.name}" style="display:block;width:32px;height:20px;object-fit:contain" />
+              </div>
+            </div>
+          `;
+          return el;
+        }}
         onGlobeReady={onGlobeReady}
       />
       {showFooter && (

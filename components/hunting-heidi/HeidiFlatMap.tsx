@@ -5,9 +5,10 @@ import type { Feature, FeatureCollection, MultiPolygon, Polygon } from "geojson"
 import { geoEquirectangular, geoPath } from "d3-geo";
 import { NEUTRAL_POLYGON_CAP, distanceToHeatPolygonCap } from "@/lib/geo";
 import { getFeatureIso2 } from "@/lib/globeGeo";
-import { COUNTRIES_BY_CODE } from "@/lib/countries";
+import { COUNTRIES_BY_CODE, type Country } from "@/lib/countries";
 import type { HeidiGuess } from "@/stores/huntingHeidiStore";
 import type { LabelMode } from "@/components/hunting-heidi/HeidiWorldView";
+import { getFlagImageUrl } from "@/lib/flags";
 
 const GEO_URL = "/geo/ne_50m_admin_0_countries.geojson";
 
@@ -26,6 +27,7 @@ function labelOpacityForZoom(zoom: number, mode: LabelMode): number {
 type Props = {
   guesses: HeidiGuess[];
   labelMode: LabelMode;
+  foundCountry?: Country | null;
 };
 
 type MapPath = {
@@ -71,7 +73,7 @@ function continentColor(code: string | null, name: string): string {
   }
 }
 
-export default function HeidiFlatMap({ guesses, labelMode }: Props) {
+export default function HeidiFlatMap({ guesses, labelMode, foundCountry = null }: Props) {
   const containerRef = useRef<HTMLDivElement>(null);
   const svgRef = useRef<SVGSVGElement>(null);
   const [geo, setGeo] = useState<FeatureCollection | null>(null);
@@ -173,6 +175,14 @@ export default function HeidiFlatMap({ guesses, labelMode }: Props) {
 
     return { paths: pathsOut, labels: labelsOut };
   }, [dims.w, dims.h, polygonsData, guessByCode]);
+
+  const foundMarker = useMemo(() => {
+    if (!foundCountry || !polygonsData.length || !dims.w || !dims.h) return null;
+    const projection = geoEquirectangular().fitSize([dims.w, dims.h], { type: "Sphere" });
+    const coords = projection([foundCountry.lng, foundCountry.lat]);
+    if (!coords || !Number.isFinite(coords[0]) || !Number.isFinite(coords[1])) return null;
+    return { x: coords[0], y: coords[1] };
+  }, [dims.h, dims.w, foundCountry, polygonsData.length]);
 
   const resetView = useCallback(() => {
     setZoom(1);
@@ -310,6 +320,45 @@ export default function HeidiFlatMap({ guesses, labelMode }: Props) {
                   </text>
                 );
               })}
+            </g>
+          )}
+
+          {foundMarker && foundCountry && (
+            <g pointerEvents="none">
+              <line
+                x1={foundMarker.x}
+                y1={foundMarker.y - 34}
+                x2={foundMarker.x}
+                y2={foundMarker.y - 8}
+                stroke="#ef3e2e"
+                strokeWidth={3}
+              />
+              <circle
+                cx={foundMarker.x}
+                cy={foundMarker.y}
+                r={7}
+                fill="#ef3e2e"
+                stroke="#ffffff"
+                strokeWidth={2}
+              />
+              <rect
+                x={foundMarker.x - 20}
+                y={foundMarker.y - 60}
+                width={40}
+                height={26}
+                rx={6}
+                fill="#ffffff"
+                stroke="#cfd8dc"
+                strokeWidth={1}
+              />
+              <image
+                href={getFlagImageUrl(foundCountry.code, 80)}
+                x={foundMarker.x - 16}
+                y={foundMarker.y - 56}
+                width={32}
+                height={18}
+                preserveAspectRatio="xMidYMid meet"
+              />
             </g>
           )}
         </g>

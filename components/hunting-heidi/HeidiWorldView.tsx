@@ -5,6 +5,7 @@ import { useState } from "react";
 import cn from "classnames";
 import HeidiFlatMap from "@/components/hunting-heidi/HeidiFlatMap";
 import type { HeidiGuess } from "@/stores/huntingHeidiStore";
+import type { Country } from "@/lib/countries";
 
 const HeidiGlobe = dynamic(() => import("@/components/hunting-heidi/HeidiGlobe"), {
   ssr: false,
@@ -26,6 +27,7 @@ type Props = {
   guesses: HeidiGuess[];
   initialLabelMode?: LabelMode;
   lockLabelMode?: boolean;
+  foundCountry?: Country | null;
 };
 
 const DIFFICULTY_OPTIONS: { value: LabelMode; label: string; hint: string }[] = [
@@ -34,7 +36,12 @@ const DIFFICULTY_OPTIONS: { value: LabelMode; label: string; hint: string }[] = 
   { value: "hard", label: "Hard", hint: "No country names shown" },
 ];
 
-export default function HeidiWorldView({ guesses, initialLabelMode = "easy", lockLabelMode = false }: Props) {
+export default function HeidiWorldView({
+  guesses,
+  initialLabelMode = "easy",
+  lockLabelMode = false,
+  foundCountry = null,
+}: Props) {
   const [mode, setMode] = useState<ViewMode>("globe");
   const [labelMode, setLabelMode] = useState<LabelMode>(initialLabelMode);
 
@@ -94,9 +101,15 @@ export default function HeidiWorldView({ guesses, initialLabelMode = "easy", loc
 
       <div className="relative">
         {mode === "globe" ? (
-          <HeidiGlobe guesses={guesses} embedded showFooter={false} labelMode={labelMode} />
+          <HeidiGlobe
+            guesses={guesses}
+            embedded
+            showFooter={false}
+            labelMode={labelMode}
+            foundCountry={foundCountry}
+          />
         ) : (
-          <HeidiFlatMap guesses={guesses} labelMode={labelMode} />
+          <HeidiFlatMap guesses={guesses} labelMode={labelMode} foundCountry={foundCountry} />
         )}
       </div>
 

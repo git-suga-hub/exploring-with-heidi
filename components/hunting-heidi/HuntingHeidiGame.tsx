@@ -86,7 +86,7 @@ export default function HuntingHeidiGame() {
   return (
     <div className="space-y-10">
       <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-start">
-        <HeidiWorldView guesses={guesses} />
+        <HeidiWorldView guesses={guesses} foundCountry={won || answerRevealed ? target : null} />
         <div className="space-y-6">
           <HeidiMascot
             message={mascotMessage}
