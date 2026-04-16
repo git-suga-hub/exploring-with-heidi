@@ -1,0 +1,30 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Brand variables */
+:root{
+  --brand-blue:#1bb7f2;
+  --brand-green:#7ccb32;
+  --brand-orange:#f45a28;
+  --brand-yellow:#ffc834;
+  --brand-deep:#0066a4;
+  --brand-cream:#fff2d6;
+  --brand-teal:#2abeb4;
+  --brand-red:#ef3e2e;
+  --brand-charcoal:#3d3d3d;
+  --brand-gray:#dde6ea;
+  --radius-brand:18px;
+}
+
+html,body{
+  height:100%;
+  background:var(--brand-cream);
+  color:var(--brand-charcoal);
+}
+
+.container{
+  max-width:72rem; /* 1152px */
+  margin:0 auto;
+  padding:0 1rem;
+}

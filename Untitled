@@ -1,0 +1,3 @@
+npm i next react react-dom framer-motion zustand classnames
+npm i -D typescript @types/node @types/react @types/react-dom tailwindcss postcss autoprefixer eslint prettier
+npx tailwindcss init -p
