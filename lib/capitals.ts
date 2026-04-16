@@ -131,7 +131,7 @@ function normalizeRegion(region: string): string {
   return "Other";
 }
 
-export const CAPITALS: CapitalEntry[] = (worldData as WorldCountry[])
+const WORLD_CAPITALS: CapitalEntry[] = (worldData as WorldCountry[])
   .filter((c) => {
     const cap = c.capital?.[0]?.trim();
     const code = c.cca2?.trim();
@@ -149,9 +149,11 @@ export const CAPITALS: CapitalEntry[] = (worldData as WorldCountry[])
     lng: c.latlng[1],
     currencyName: pickCurrency(c),
     languageName: pickLanguage(c),
-  }))
-  .concat(UK_NATIONS_CAPITALS)
-  .sort((a, b) => a.capitalName.localeCompare(b.capitalName, "en"));
+  }));
+
+export const CAPITALS: CapitalEntry[] = [...WORLD_CAPITALS, ...UK_NATIONS_CAPITALS].sort((a, b) =>
+  a.capitalName.localeCompare(b.capitalName, "en")
+);
 
 export const CAPITALS_BY_NAME: Record<string, CapitalEntry> = Object.fromEntries(
   CAPITALS.map((c) => [c.capitalName.toLowerCase(), c])
