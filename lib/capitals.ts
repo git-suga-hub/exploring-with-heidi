@@ -171,7 +171,7 @@ export const CAPITALS_BY_NORMALIZED_NAME: Record<string, CapitalEntry> = Object.
 
 const CAPITAL_ALIASES: Record<string, string> = {
   washingtondc: "washingtond c".replace(/\s/g, ""),
-  washingtond.c: "washingtond c".replace(/\s/g, ""),
+  "washingtond.c": "washingtond c".replace(/\s/g, ""),
 };
 
 export function randomCapital(): CapitalEntry {
