@@ -10,17 +10,17 @@ const nav = [
 
 export default function SiteFooter() {
   return (
-    <footer className="border-t border-ui-gray bg-white/80">
-      <div className="container py-10">
-        <div className="flex flex-col gap-8 md:flex-row md:items-start md:justify-between">
+    <footer className="mt-6 border-t border-ui-gray bg-white/80">
+      <div className="container py-6">
+        <div className="flex flex-col gap-4 md:flex-row md:items-start md:justify-between">
           <div className="max-w-md">
-            <p className="font-display text-lg text-heidi-orange">Exploring with Heidi</p>
-            <p className="mt-2 text-sm leading-relaxed text-ui-charcoal/80">
+            <p className="font-display text-base text-heidi-orange">Exploring with Heidi</p>
+            <p className="mt-1 text-xs leading-relaxed text-ui-charcoal/80 sm:text-sm">
               Mini Globe Learners — free geography games for children. Learn flags, capitals, and where countries
               sit on the map, right in your browser.
             </p>
           </div>
-          <nav aria-label="Footer" className="flex flex-wrap gap-x-6 gap-y-2 font-display text-sm">
+          <nav aria-label="Footer" className="flex flex-wrap gap-x-4 gap-y-1.5 font-display text-xs sm:text-sm">
             {nav.map((item) => (
               <Link
                 key={item.href}
@@ -32,7 +32,7 @@ export default function SiteFooter() {
             ))}
           </nav>
         </div>
-        <p className="mt-8 border-t border-ui-gray/80 pt-6 text-center text-xs text-ui-charcoal/55">
+        <p className="mt-4 border-t border-ui-gray/80 pt-3 text-center text-[11px] text-ui-charcoal/55 sm:text-xs">
           © {new Date().getFullYear()} Exploring with Heidi · Mini Globe Learners
         </p>
       </div>
