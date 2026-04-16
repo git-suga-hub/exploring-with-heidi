@@ -138,8 +138,8 @@ export default function FlagsMemoryMatch() {
       )}
 
       {!gameFinished && (
-        <div className="grid grid-cols-2 gap-4" aria-label="Country to flag match game">
-          <div className="space-y-2">
+        <div className="grid grid-cols-1 gap-4 sm:grid-cols-2" aria-label="Country to flag match game">
+          <div className="space-y-3">
             {roundState.countries.map((country) => {
               const linkedFlag = connections[country.code];
               const correct = linkedFlag === country.code;
@@ -150,7 +150,7 @@ export default function FlagsMemoryMatch() {
                   type="button"
                   onClick={() => selectCountry(country.code)}
                   className={cn(
-                    "w-full rounded-brand border px-3 py-3 text-left text-sm shadow-brand transition",
+                    "flex min-h-[88px] w-full items-center rounded-brand border px-4 py-3 text-left shadow-brand transition sm:min-h-[96px]",
                     selectedCountryCode === country.code
                       ? "border-explorer-blue bg-explorer-blue text-white"
                       : "border-ui-gray bg-white text-ui-charcoal hover:bg-ui-cream",
@@ -158,18 +158,20 @@ export default function FlagsMemoryMatch() {
                     linkedFlag && correct && "border-discovery-green"
                   )}
                 >
-                  <div className="font-display">{country.name}</div>
-                  {linkedFlag && (
-                    <div className="mt-1 text-xs opacity-80">
-                      Connected {correct ? "correctly" : "to another flag"} - click a flag to change
-                    </div>
-                  )}
+                  <div>
+                    <div className="font-display text-base sm:text-lg">{country.name}</div>
+                    {linkedFlag && (
+                      <div className="mt-1 text-xs opacity-80">
+                        Connected {correct ? "correctly" : "to another flag"} - click a flag to change
+                      </div>
+                    )}
+                  </div>
                 </button>
               );
             })}
           </div>
 
-          <div className="space-y-2">
+          <div className="space-y-3">
             {roundState.flags.map((country) => (
               <button
                 key={country.code}
@@ -177,19 +179,19 @@ export default function FlagsMemoryMatch() {
                 onClick={() => connectToFlag(country.code)}
                 disabled={!selectedCountryCode}
                 className={cn(
-                  "relative block w-full overflow-hidden rounded-brand border bg-white p-0 shadow-brand transition",
+                  "relative block min-h-[88px] w-full overflow-hidden rounded-brand border bg-white p-0 shadow-brand transition sm:min-h-[96px]",
                   selectedCountryCode
                     ? "border-explorer-blue hover:brightness-95"
                     : "border-ui-gray opacity-80"
                 )}
               >
-                <div className="relative aspect-[3/2] w-full bg-white">
+                <div className="relative h-[88px] w-full bg-white sm:h-[96px]">
                   <Image
                     src={getFlagImageUrl(country.code, 320)}
                     alt={`Flag of ${country.name}`}
                     fill
                     className="object-contain"
-                    sizes="(max-width: 640px) 45vw, 260px"
+                    sizes="(max-width: 640px) 90vw, 260px"
                   />
                 </div>
                 {connectedFlagCodes.has(country.code) && (
