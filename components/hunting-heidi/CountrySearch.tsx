@@ -35,7 +35,7 @@ export default function CountrySearch({ disabled, excludedCodes, onPick, disable
   };
 
   return (
-    <div className="relative w-full max-w-xl">
+    <div className="relative w-full">
       <label className="sr-only" htmlFor="country-search">
         Search for a country
       </label>

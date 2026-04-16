@@ -176,18 +176,18 @@ export default function CapitalsQuizGame() {
                 </ul>
               )}
             </div>
-            <div className="flex flex-wrap gap-2">
+            <div className="grid grid-cols-1 gap-2 sm:flex sm:flex-wrap">
               <button
                 type="submit"
                 disabled={won || answerRevealed}
-                className="rounded-brand border-2 border-explorer-blue bg-explorer-blue px-4 py-2 font-display text-white shadow-brand disabled:opacity-60"
+                className="w-full rounded-brand border-2 border-explorer-blue bg-explorer-blue px-4 py-2 font-display text-white shadow-brand disabled:opacity-60 sm:w-auto"
               >
                 Guess capital
               </button>
               <button
                 type="button"
                 onClick={askClue}
-                className="rounded-brand border-2 border-heidi-orange bg-white px-4 py-2 font-display text-ui-charcoal shadow-brand hover:bg-ui-cream"
+                className="w-full rounded-brand border-2 border-heidi-orange bg-white px-4 py-2 font-display text-ui-charcoal shadow-brand hover:bg-ui-cream sm:w-auto"
               >
                 Ask Heidi for a clue
               </button>
@@ -195,14 +195,14 @@ export default function CapitalsQuizGame() {
                 type="button"
                 onClick={onReveal}
                 disabled={won || answerRevealed}
-                className="rounded-brand border-2 border-ui-gray bg-white px-4 py-2 font-display text-ui-charcoal shadow-brand hover:bg-ui-cream disabled:opacity-60"
+                className="w-full rounded-brand border-2 border-ui-gray bg-white px-4 py-2 font-display text-ui-charcoal shadow-brand hover:bg-ui-cream disabled:opacity-60 sm:w-auto"
               >
                 Reveal answer
               </button>
               <button
                 type="button"
                 onClick={onNewGame}
-                className="rounded-brand border-2 border-ui-gray bg-white px-4 py-2 font-display text-ui-charcoal shadow-brand hover:bg-ui-cream"
+                className="w-full rounded-brand border-2 border-ui-gray bg-white px-4 py-2 font-display text-ui-charcoal shadow-brand hover:bg-ui-cream sm:w-auto"
               >
                 New game
               </button>

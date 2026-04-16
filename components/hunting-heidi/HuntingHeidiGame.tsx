@@ -101,8 +101,8 @@ export default function HuntingHeidiGame() {
             </p>
           )}
 
-          <div className="flex flex-wrap items-end gap-3">
-            <div className="min-w-0 flex-1">
+          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
+            <div className="w-full sm:min-w-0 sm:flex-1">
               <CountrySearch
                 disabled={roundLocked}
                 excludedCodes={excluded}
@@ -116,14 +116,14 @@ export default function HuntingHeidiGame() {
               type="button"
               onClick={handleGiveUp}
               disabled={roundLocked}
-              className="rounded-brand border-2 border-ui-gray bg-white px-4 py-3 font-display text-sm text-ui-charcoal shadow-brand hover:bg-ui-cream disabled:cursor-not-allowed disabled:opacity-50"
+              className="w-full rounded-brand border-2 border-ui-gray bg-white px-4 py-3 font-display text-sm text-ui-charcoal shadow-brand hover:bg-ui-cream disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
             >
               Reveal answer
             </button>
             <button
               type="button"
               onClick={handleNewGame}
-              className="rounded-brand border-2 border-ui-gray bg-white px-5 py-3 font-display shadow-brand hover:bg-ui-cream"
+              className="w-full rounded-brand border-2 border-ui-gray bg-white px-5 py-3 font-display shadow-brand hover:bg-ui-cream sm:w-auto"
             >
               New game
             </button>
