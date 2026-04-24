@@ -4,25 +4,31 @@
 
 /* Brand variables */
 :root{
-  --brand-blue:#1bb7f2;
-  --brand-green:#7ccb32;
-  --brand-orange:#f45a28;
-  --brand-yellow:#ffc834;
-  --brand-deep:#0066a4;
-  --brand-cream:#fff2d6;
-  --brand-teal:#2abeb4;
-  --brand-red:#ef3e2e;
-  --brand-charcoal:#3d3d3d;
-  --brand-gray:#dde6ea;
-  --radius-brand:18px;
+  --sky:#8EDAF5;
+  --sunshine:#FFD166;
+  --grass:#7BC96F;
+  --coral:#FF8A7A;
+  --cream:#FFF7E8;
+  --deep-text:#31424A;
+  --brand-blue:var(--sky);
+  --brand-green:var(--grass);
+  --brand-orange:var(--coral);
+  --brand-yellow:var(--sunshine);
+  --brand-deep:#4faed4;
+  --brand-cream:var(--cream);
+  --brand-teal:#7cd6cf;
+  --brand-red:#ff7462;
+  --brand-charcoal:var(--deep-text);
+  --brand-gray:#dfeaf0;
+  --radius-brand:20px;
 }
 
 html,body{
   height:100%;
   background:
-    radial-gradient(circle at 18% 22%, rgba(27,183,242,0.12) 0, rgba(27,183,242,0) 160px),
-    radial-gradient(circle at 82% 14%, rgba(124,203,50,0.12) 0, rgba(124,203,50,0) 170px),
-    radial-gradient(circle at 88% 84%, rgba(244,90,40,0.1) 0, rgba(244,90,40,0) 180px),
+    radial-gradient(circle at 14% 18%, rgba(142,218,245,0.28) 0, rgba(142,218,245,0) 280px),
+    radial-gradient(circle at 88% 12%, rgba(255,209,102,0.28) 0, rgba(255,209,102,0) 260px),
+    radial-gradient(circle at 84% 82%, rgba(123,201,111,0.22) 0, rgba(123,201,111,0) 280px),
     var(--brand-cream);
   color:var(--brand-charcoal);
 }
@@ -30,5 +36,11 @@ html,body{
 .container{
   max-width:72rem; /* 1152px */
   margin:0 auto;
-  padding:0 1rem;
+  padding:0 1.1rem;
+}
+
+a:focus-visible,
+button:focus-visible{
+  outline:3px solid rgba(49, 66, 74, 0.35);
+  outline-offset:2px;
 }

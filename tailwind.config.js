@@ -7,19 +7,19 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        explorer: { blue: '#1BB7F2', deep: '#0066A4' },
-        discovery: { green: '#7CCB32' },
-        heidi: { orange: '#F45A28', yellow: '#FFC834' },
+        explorer: { blue: '#8EDAF5', deep: '#4FAED4' },
+        discovery: { green: '#7BC96F' },
+        heidi: { orange: '#FF8A7A', yellow: '#FFD166' },
         ui: {
-          cream: '#FFF2D6',
-          teal: '#2ABEB4',
-          red: '#EF3E2E',
-          charcoal: '#3D3D3D',
-          gray: '#DDE6EA'
+          cream: '#FFF7E8',
+          teal: '#7CD6CF',
+          red: '#FF7462',
+          charcoal: '#31424A',
+          gray: '#DFEAF0'
         }
       },
-      borderRadius: { brand: '18px' },
-      boxShadow: { brand: '0 8px 20px rgba(0,0,0,0.12)' },
+      borderRadius: { brand: '20px' },
+      boxShadow: { brand: '0 10px 28px rgba(49,66,74,0.14)' },
       fontFamily: {
         display: ['var(--font-display)'],
         body: ['var(--font-body)']
