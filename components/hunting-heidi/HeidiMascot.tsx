@@ -36,7 +36,7 @@ export default function HeidiMascot({ message, heat, celebrate, winFlagCode }: P
           <div
             className={cn(
               "relative h-36 w-36 overflow-hidden rounded-2xl border-4 border-white shadow-brand md:h-40 md:w-40",
-              "bg-black"
+              "bg-gradient-to-b from-sky-100 to-white"
             )}
           >
             {!imgFailed ? (

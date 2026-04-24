@@ -45,7 +45,7 @@ type MapLabel = {
 
 function truncateName(name: string, max = 22): string {
   if (name.length <= max) return name;
-  return `${name.slice(0, max - 1)}…`;
+  return `${name.slice(0, max - 1)}...`;
 }
 
 function continentColor(code: string | null, name: string): string {
@@ -81,6 +81,7 @@ export default function HeidiFlatMap({ guesses, labelMode, foundCountry = null }
   const [dims, setDims] = useState({ w: 400, h: 300 });
   const [zoom, setZoom] = useState(1);
   const [pan, setPan] = useState({ x: 0, y: 0 });
+  const lastFocusKeyRef = useRef<string>("");
   const dragRef = useRef<{ active: boolean; x: number; y: number }>({
     active: false,
     x: 0,
@@ -184,10 +185,44 @@ export default function HeidiFlatMap({ guesses, labelMode, foundCountry = null }
     return { x: coords[0], y: coords[1] };
   }, [dims.h, dims.w, foundCountry, polygonsData.length]);
 
+  const latestFocusTarget = useMemo(() => {
+    if (guesses.length > 0) return guesses[guesses.length - 1].country;
+    return foundCountry ?? null;
+  }, [foundCountry, guesses]);
+
   const resetView = useCallback(() => {
     setZoom(1);
     setPan({ x: 0, y: 0 });
   }, []);
+
+  useEffect(() => {
+    if (!dims.w || !dims.h || !polygonsData.length) return;
+
+    if (!latestFocusTarget) {
+      if (lastFocusKeyRef.current === "default") return;
+      lastFocusKeyRef.current = "default";
+      setZoom(1);
+      setPan({ x: 0, y: 0 });
+      return;
+    }
+
+    const focusKey = `${latestFocusTarget.code}-${guesses.length}`;
+    if (lastFocusKeyRef.current === focusKey) return;
+    lastFocusKeyRef.current = focusKey;
+
+    const projection = geoEquirectangular().fitSize([dims.w, dims.h], { type: "Sphere" });
+    const coords = projection([latestFocusTarget.lng, latestFocusTarget.lat]);
+    if (!coords || !Number.isFinite(coords[0]) || !Number.isFinite(coords[1])) return;
+
+    const targetZoom = 2.25;
+    const cx = dims.w / 2;
+    const cy = dims.h / 2;
+    setZoom(targetZoom);
+    setPan({
+      x: targetZoom * (cx - coords[0]),
+      y: targetZoom * (cy - coords[1]),
+    });
+  }, [dims.h, dims.w, guesses.length, latestFocusTarget, polygonsData.length]);
 
   const onWheel = (e: React.WheelEvent<SVGSVGElement>) => {
     e.preventDefault();
@@ -235,10 +270,10 @@ export default function HeidiFlatMap({ guesses, labelMode, foundCountry = null }
   if (!geo || !paths.length) {
     return (
       <div
-        className="flex w-full items-center justify-center bg-[#1e3a52]"
+        className="flex w-full items-center justify-center bg-sky-100"
         style={{ minHeight: dims.h || 280 }}
       >
-        <span className="text-sm text-cyan-100/80">Loading flat map…</span>
+        <span className="text-sm text-explorer-deep/80">Loading flat map...</span>
       </div>
     );
   }
@@ -250,17 +285,17 @@ export default function HeidiFlatMap({ guesses, labelMode, foundCountry = null }
   const showLabelLayer = labelOpacity > 0.02;
 
   return (
-    <div ref={containerRef} className="relative w-full bg-[#1e3a52]">
+    <div ref={containerRef} className="relative w-full bg-gradient-to-b from-sky-100 to-cyan-50">
       {labelMode === "medium" && !showLabelLayer && (
-        <div className="pointer-events-none absolute left-3 top-12 z-10 max-w-[15rem] rounded-lg border border-white/15 bg-explorer-deep/85 px-3 py-2 font-display text-xs leading-snug text-cyan-50 shadow-md backdrop-blur-sm">
-          Zoom in closer — country names appear when you&apos;re zoomed in.
+        <div className="pointer-events-none absolute left-3 top-12 z-10 max-w-[15rem] rounded-lg border border-explorer-blue/30 bg-white/90 px-3 py-2 font-display text-xs leading-snug text-explorer-deep shadow-md backdrop-blur-sm">
+          Zoom in closer - country names appear when you&apos;re zoomed in.
         </div>
       )}
       <div className="absolute right-2 top-2 z-10 flex gap-2">
         <button
           type="button"
           onClick={resetView}
-          className="rounded-full border border-white/20 bg-explorer-deep/90 px-3 py-1 font-display text-xs text-white shadow-sm backdrop-blur hover:bg-explorer-blue"
+          className="rounded-full border border-explorer-blue/30 bg-white px-3 py-1 font-display text-xs text-explorer-deep shadow-sm hover:bg-sky-50"
         >
           Reset view
         </button>
@@ -286,7 +321,7 @@ export default function HeidiFlatMap({ guesses, labelMode, foundCountry = null }
           </filter>
         </defs>
 
-        <rect width={w} height={h} fill="#1e3a52" />
+        <rect width={w} height={h} fill="#bfe8ff" />
 
         <g
           transform={`translate(${pan.x},${pan.y}) translate(${cx},${cy}) scale(${zoom}) translate(${-cx},${-cy})`}
@@ -310,8 +345,8 @@ export default function HeidiFlatMap({ guesses, labelMode, foundCountry = null }
                     fontSize={fontSize}
                     fontFamily="var(--font-display), system-ui, sans-serif"
                     fontWeight={labelMode === "easy" ? 400 : 300}
-                    fill="#ffffff"
-                    stroke="#0f1e2e"
+                    fill="#0f3d57"
+                    stroke="#ffffff"
                     strokeWidth={sw}
                     paintOrder="stroke fill"
                     filter="url(#labelShadow)"

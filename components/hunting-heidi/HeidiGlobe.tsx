@@ -16,10 +16,10 @@ const Globe = dynamic(() => import("react-globe.gl").then((m) => m.default), {
   ssr: false,
   loading: () => (
     <div
-      className="flex w-full items-center justify-center rounded-brand border border-ui-gray bg-[#1a2e42] text-sm text-cyan-100"
+      className="flex w-full items-center justify-center rounded-brand border border-explorer-blue/30 bg-sky-100 text-sm text-explorer-deep"
       style={{ minHeight: 280 }}
     >
-      Loading globe…
+      Loading globe...
     </div>
   ),
 });
@@ -84,6 +84,7 @@ export default function HeidiGlobe({
 }: Props) {
   const globeRef = useRef<GlobeMethods | undefined>(undefined);
   const containerRef = useRef<HTMLDivElement>(null);
+  const lastFocusKeyRef = useRef<string>("");
   const [geo, setGeo] = useState<FeatureCollection | null>(null);
   const [loadError, setLoadError] = useState(false);
   const [dims, setDims] = useState({ w: 400, h: 300 });
@@ -156,6 +157,11 @@ export default function HeidiGlobe({
     [foundCountry]
   );
 
+  const latestFocusTarget = useMemo(() => {
+    if (guesses.length > 0) return guesses[guesses.length - 1].country;
+    return foundCountry ?? null;
+  }, [foundCountry, guesses]);
+
   const polygonCapColor = useCallback(
     (d: object) => {
       const f = d as Feature<Polygon | MultiPolygon>;
@@ -209,6 +215,31 @@ export default function HeidiGlobe({
     }
   }, []);
 
+  useEffect(() => {
+    const g = globeRef.current;
+    if (!g) return;
+
+    if (!latestFocusTarget) {
+      if (lastFocusKeyRef.current === "default") return;
+      lastFocusKeyRef.current = "default";
+      try {
+        g.pointOfView({ lat: 20, lng: 0, altitude: 2.2 }, 700);
+      } catch {
+        /* ignore */
+      }
+      return;
+    }
+
+    const focusKey = `${latestFocusTarget.code}-${guesses.length}`;
+    if (lastFocusKeyRef.current === focusKey) return;
+    lastFocusKeyRef.current = focusKey;
+    try {
+      g.pointOfView({ lat: latestFocusTarget.lat, lng: latestFocusTarget.lng, altitude: 1.7 }, 900);
+    } catch {
+      /* ignore */
+    }
+  }, [guesses.length, latestFocusTarget]);
+
   if (loadError) {
     return (
       <div className="rounded-brand border border-ui-red bg-red-50 px-4 py-6 text-center text-sm text-red-900">
@@ -220,10 +251,10 @@ export default function HeidiGlobe({
   if (!geo) {
     return (
       <div
-        className="flex w-full items-center justify-center rounded-brand border border-ui-gray bg-[#1a2e42] text-sm text-cyan-100"
+      className="flex w-full items-center justify-center rounded-brand border border-explorer-blue/30 bg-sky-100 text-sm text-explorer-deep"
         style={{ minHeight: dims.h || 280 }}
       >
-        Loading map…
+        Loading map...
       </div>
     );
   }
@@ -233,15 +264,15 @@ export default function HeidiGlobe({
       ref={containerRef}
       className={
         embedded
-          ? "w-full overflow-hidden bg-[#1a2e42]"
-          : "w-full overflow-hidden rounded-brand border-2 border-explorer-blue bg-[#1a2e42] shadow-brand"
+          ? "w-full overflow-hidden bg-transparent"
+          : "w-full overflow-hidden rounded-brand border-2 border-explorer-blue/40 bg-gradient-to-b from-sky-100 to-cyan-50 shadow-brand"
       }
     >
       <Globe
         ref={globeRef}
         width={dims.w}
         height={dims.h}
-        backgroundColor="rgba(26, 46, 66, 0)"
+        backgroundColor="rgba(191, 232, 255, 0.15)"
         globeImageUrl="https://unpkg.com/three-globe/example/img/earth-blue-marble.jpg"
         bumpImageUrl="https://unpkg.com/three-globe/example/img/earth-topology.png"
         showAtmosphere
@@ -284,8 +315,8 @@ export default function HeidiGlobe({
         onGlobeReady={onGlobeReady}
       />
       {showFooter && (
-        <p className="border-t border-white/10 px-3 py-2 text-center text-[11px] leading-snug text-cyan-100/75">
-          Drag to rotate · Scroll to zoom · Guessed countries tint frosty blue (far) → yellow, orange, then deep red
+        <p className="border-t border-explorer-blue/20 px-3 py-2 text-center text-[11px] leading-snug text-explorer-deep/80">
+          Drag to rotate - scroll to zoom - guessed countries tint frosty blue (far) -&gt; yellow, orange, then deep red
           (close). Map: Natural Earth.
         </p>
       )}
