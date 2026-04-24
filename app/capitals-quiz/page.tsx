@@ -1,4 +1,4 @@
-import type { Metadata } from "next";
+﻿import type { Metadata } from "next";
 import CapitalsQuizGame from "@/components/capitals-quiz/CapitalsQuizGame";
 
 export const metadata: Metadata = {
@@ -12,8 +12,8 @@ export default function CapitalsQuizPage() {
       <header className="space-y-2">
         <h1 className="font-display text-3xl text-ui-charcoal md:text-4xl">Capital City Hunt (Hard)</h1>
         <p className="max-w-3xl text-ui-charcoal/75">
-          Heidi is hiding in a world capital city. There are no map labels in this mode, so use your geography instincts
-          and ask Heidi for clues when you need help.
+          Heidi is hiding in a world capital city. Type your capital guess above the globe, use clues if needed, and
+          track your closest guesses below the globe.
         </p>
       </header>
       <CapitalsQuizGame />

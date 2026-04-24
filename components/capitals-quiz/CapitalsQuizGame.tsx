@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import cn from "classnames";
@@ -24,7 +24,7 @@ export default function CapitalsQuizGame() {
   const [openSuggestions, setOpenSuggestions] = useState(false);
   const [banner, setBanner] = useState<string | null>(null);
   const [heidiLine, setHeidiLine] = useState(
-    "Ready for the hardest game? No map labels. Type a capital city and ask me for clues if you get stuck!"
+    "Type a capital city. If you get stuck, press the clue button."
   );
 
   const worldGuesses = useMemo(
@@ -66,12 +66,12 @@ export default function CapitalsQuizGame() {
     setBanner(null);
     const entry = findCapitalByName(input);
     if (!entry) {
-      setBanner("I couldn't find that capital. Try exact city names like 'Lisbon' or 'Tokyo'.");
+      setBanner("I could not find that capital. Try exact city names like Lisbon or Tokyo.");
       return;
     }
     const result = guessCapital(entry);
     if (!result.ok) {
-      setBanner(result.reason === "duplicate" ? "You already guessed that capital." : "Round finished — start a new game.");
+      setBanner(result.reason === "duplicate" ? "You already guessed that capital." : "Round finished - start a new game.");
       return;
     }
     setInput("");
@@ -81,10 +81,10 @@ export default function CapitalsQuizGame() {
       return;
     }
     const latest = useCapitalsGameStore.getState().lastDistanceKm ?? 0;
-    if (latest < 700) setHeidiLine("Very warm! You're close to my capital city now.");
-    else if (latest < 1600) setHeidiLine("Warmer. Same region vibe — keep tightening your guesses.");
-    else if (latest < 3500) setHeidiLine("Not bad, but you're still a few borders away.");
-    else setHeidiLine("Cold guess. Try a different part of the world and then ask me for a clue.");
+    if (latest < 700) setHeidiLine("Very warm! You are close to my capital city now.");
+    else if (latest < 1600) setHeidiLine("Warmer. Same region vibe - keep tightening your guesses.");
+    else if (latest < 3500) setHeidiLine("Not bad, but you are still a few borders away.");
+    else setHeidiLine("Cold guess. Try a different part of the world, then ask me for a clue.");
   };
 
   const askClue = () => {
@@ -104,13 +104,24 @@ export default function CapitalsQuizGame() {
     setInput("");
     setOpenSuggestions(false);
     setBanner(null);
-    setHeidiLine("New round! I'm hiding in another capital. Ask for clues whenever you need help.");
+    setHeidiLine("New round! I am hiding in another capital. Ask for clues whenever you need help.");
   };
 
   return (
     <div className="space-y-8">
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1.08fr)_minmax(0,0.92fr)] lg:items-start">
-        <HeidiWorldView guesses={worldGuesses} initialLabelMode="hard" lockLabelMode />
+      <section className="rounded-brand border-2 border-heidi-orange/40 bg-gradient-to-b from-amber-50 to-white p-4 shadow-brand md:p-6">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-display text-2xl text-ui-charcoal md:text-3xl">1. Type a city</h2>
+          <p className="rounded-full bg-heidi-orange px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+            Kid mode
+          </p>
+        </div>
+        <div className="mb-5 flex flex-wrap gap-2">
+          <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-ui-charcoal/80 shadow-sm">Type</span>
+          <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-ui-charcoal/80 shadow-sm">Guess</span>
+          <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-ui-charcoal/80 shadow-sm">Learn</span>
+        </div>
+        <p className="mb-4 text-sm text-ui-charcoal/70">Type, press guess, then check your list below.</p>
 
         <div className="space-y-5">
           <HeidiMascot message={heidiLine} heat={null} celebrate={won} />
@@ -121,7 +132,7 @@ export default function CapitalsQuizGame() {
 
           <form onSubmit={onSubmit} className="space-y-3">
             <label htmlFor="capital-input" className="block font-display text-sm text-ui-charcoal">
-              Type a capital city
+              Capital city
             </label>
             <div className="relative">
               <input
@@ -144,10 +155,10 @@ export default function CapitalsQuizGame() {
                     }
                   }
                 }}
-                placeholder="e.g. Nairobi"
+                placeholder="Try: Tokyo"
                 autoComplete="off"
                 disabled={won || answerRevealed}
-                className="w-full rounded-brand border-2 border-ui-gray bg-white px-4 py-3 text-base text-ui-charcoal shadow-sm outline-none transition focus:border-explorer-blue"
+                className="w-full rounded-brand border-2 border-ui-gray bg-white px-4 py-3 text-xl text-ui-charcoal shadow-sm outline-none transition focus:border-explorer-blue"
               />
 
               {openSuggestions && !won && !answerRevealed && filteredCapitals.length > 0 && (
@@ -165,7 +176,7 @@ export default function CapitalsQuizGame() {
                           setOpenSuggestions(false);
                         }}
                         className={cn(
-                          "flex w-full items-center gap-2 px-4 py-2 text-left text-sm hover:bg-ui-cream"
+                          "flex w-full items-center gap-2 px-4 py-3 text-left text-sm hover:bg-ui-cream"
                         )}
                       >
                         <span className="font-display">{c.capitalName}</span>
@@ -176,66 +187,75 @@ export default function CapitalsQuizGame() {
                 </ul>
               )}
             </div>
-            <div className="grid grid-cols-1 gap-2 sm:flex sm:flex-wrap">
+            <div className="grid grid-cols-1 gap-2 md:flex md:flex-wrap">
               <button
                 type="submit"
                 disabled={won || answerRevealed}
-                className="w-full rounded-brand border-2 border-explorer-blue bg-explorer-blue px-4 py-2 font-display text-white shadow-brand disabled:opacity-60 sm:w-auto"
+                className="flex w-full items-center justify-center gap-2 rounded-brand border-2 border-explorer-blue bg-explorer-blue px-4 py-3 font-display text-lg text-white shadow-brand disabled:opacity-60 md:w-auto"
               >
-                Guess capital
+                <span className="rounded-full bg-white/90 px-2 py-0.5 text-xs text-explorer-blue">GO</span>
+                Guess
               </button>
               <button
                 type="button"
                 onClick={askClue}
-                className="w-full rounded-brand border-2 border-heidi-orange bg-white px-4 py-2 font-display text-ui-charcoal shadow-brand hover:bg-ui-cream sm:w-auto"
+                className="flex w-full items-center justify-center gap-2 rounded-brand border-2 border-heidi-orange bg-amber-50 px-4 py-3 font-display text-lg text-ui-charcoal shadow-brand hover:bg-amber-100 md:w-auto"
               >
-                Ask Heidi for a clue
+                <span className="rounded-full bg-white px-2 py-0.5 text-xs">?</span>
+                Clue
               </button>
               <button
                 type="button"
                 onClick={onReveal}
                 disabled={won || answerRevealed}
-                className="w-full rounded-brand border-2 border-ui-gray bg-white px-4 py-2 font-display text-ui-charcoal shadow-brand hover:bg-ui-cream disabled:opacity-60 sm:w-auto"
+                className="flex w-full items-center justify-center gap-2 rounded-brand border-2 border-ui-gray bg-white px-4 py-3 font-display text-lg text-ui-charcoal shadow-brand hover:bg-ui-cream disabled:opacity-60 md:w-auto"
               >
-                Reveal answer
+                <span className="rounded-full bg-ui-cream px-2 py-0.5 text-xs">SEE</span>
+                Show me
               </button>
               <button
                 type="button"
                 onClick={onNewGame}
-                className="w-full rounded-brand border-2 border-ui-gray bg-white px-4 py-2 font-display text-ui-charcoal shadow-brand hover:bg-ui-cream sm:w-auto"
+                className="flex w-full items-center justify-center gap-2 rounded-brand border-2 border-discovery-green bg-green-50 px-4 py-3 font-display text-lg text-ui-charcoal shadow-brand hover:bg-green-100 md:w-auto"
               >
-                New game
+                <span className="rounded-full bg-white px-2 py-0.5 text-xs">GO</span>
+                Again
               </button>
             </div>
           </form>
 
-          <p className="text-xs text-ui-charcoal/65">
-            Hard mode rules: no country names on map or globe. Use your geography skills plus optional clues.
-          </p>
-          <p className="text-xs text-ui-charcoal/65">Clues asked this round: {cluesUsed}</p>
+          <p className="text-base text-ui-charcoal/65">Hard mode rule: no country names on map or globe.</p>
+          <p className="text-base text-ui-charcoal/65">Clues asked this round: {cluesUsed}</p>
           {answerRevealed && !won && (
             <div className="rounded-brand border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-900">
               Answer revealed: <strong>{target.capitalName}</strong>, {target.countryName}.
             </div>
           )}
         </div>
-      </div>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="font-display text-2xl text-ui-charcoal md:text-3xl">2. Look at the globe</h2>
+        <HeidiWorldView guesses={worldGuesses} initialLabelMode="hard" lockLabelMode />
+      </section>
 
       <section>
-        <h2 className="font-display text-xl text-ui-charcoal">Guessed capitals</h2>
+        <h2 className="font-display text-2xl text-ui-charcoal md:text-3xl">3. Guess list</h2>
         {sortedGuesses.length === 0 ? (
-          <p className="mt-2 text-ui-charcoal/60">No guesses yet.</p>
+          <p className="mt-2 rounded-brand border border-ui-gray bg-white px-4 py-3 text-ui-charcoal/70">
+            No guesses yet. Try your first capital above.
+          </p>
         ) : (
           <ul className="mt-3 space-y-2">
             {sortedGuesses.map((g) => (
               <li
                 key={`${g.entry.countryCode}-${g.entry.capitalName}`}
-                className="flex items-center justify-between gap-4 rounded-brand border border-ui-gray bg-white px-3 py-2 shadow-sm"
+                className="flex items-center justify-between gap-4 rounded-brand border border-ui-gray bg-white px-3 py-3 shadow-sm"
               >
-                <span className="font-display text-ui-charcoal">
+                <span className="font-display text-lg text-ui-charcoal">
                   {g.entry.capitalName}, {g.entry.countryName}
                 </span>
-                <span className="font-mono text-sm tabular-nums text-ui-charcoal/80">{g.distanceKm.toLocaleString()} km</span>
+                <span className="font-mono text-base tabular-nums text-ui-charcoal/80">{g.distanceKm.toLocaleString()} km</span>
               </li>
             ))}
           </ul>
@@ -244,4 +264,3 @@ export default function CapitalsQuizGame() {
     </div>
   );
 }
-

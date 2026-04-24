@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import Image from "next/image";
@@ -37,7 +37,6 @@ export default function HuntingHeidiGame() {
   const [banner, setBanner] = useState<string | null>(null);
 
   const excluded = useMemo(() => new Set(guesses.map((g) => g.country.code)), [guesses]);
-
   const sorted = useMemo(() => getSortedGuesses(guesses), [guesses]);
 
   const roundLocked = won || answerRevealed;
@@ -47,7 +46,7 @@ export default function HuntingHeidiGame() {
     const result = guessCountry(country);
     if (!result.ok) {
       if (result.reason === "duplicate") {
-        setBanner("You already guessed that country — try another!");
+        setBanner("You already guessed that country. Try another one!");
       }
       return;
     }
@@ -84,10 +83,22 @@ export default function HuntingHeidiGame() {
   };
 
   return (
-    <div className="space-y-10">
-      <div className="grid gap-8 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.05fr)] lg:items-start">
-        <HeidiWorldView guesses={guesses} foundCountry={won || answerRevealed ? target : null} />
-        <div className="space-y-6">
+    <div className="space-y-8">
+      <section className="rounded-brand border-2 border-explorer-blue/40 bg-gradient-to-b from-cyan-50 to-white p-4 shadow-brand md:p-6">
+        <div className="mb-4 flex flex-wrap items-center justify-between gap-3">
+          <h2 className="font-display text-2xl text-ui-charcoal md:text-3xl">1. Pick a country</h2>
+          <p className="rounded-full bg-explorer-blue px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+            Kid mode
+          </p>
+        </div>
+        <div className="mb-5 flex flex-wrap gap-2">
+          <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-ui-charcoal/80 shadow-sm">Pick</span>
+          <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-ui-charcoal/80 shadow-sm">Watch</span>
+          <span className="rounded-full bg-white px-3 py-1 text-xs font-bold text-ui-charcoal/80 shadow-sm">Try again</span>
+        </div>
+        <p className="mb-4 text-sm text-ui-charcoal/70">Do one step at a time. You can always press play again.</p>
+
+        <div className="space-y-5">
           <HeidiMascot
             message={mascotMessage}
             heat={won || answerRevealed ? null : heat}
@@ -101,14 +112,14 @@ export default function HuntingHeidiGame() {
             </p>
           )}
 
-          <div className="flex flex-col gap-3 sm:flex-row sm:flex-wrap sm:items-end">
-            <div className="w-full sm:min-w-0 sm:flex-1">
+          <div className="flex flex-col gap-3 md:flex-row md:flex-wrap md:items-end">
+            <div className="w-full md:min-w-0 md:flex-1">
               <CountrySearch
                 disabled={roundLocked}
                 excludedCodes={excluded}
                 onPick={onPick}
                 disabledPlaceholder={
-                  won ? "You found Heidi!" : answerRevealed ? "Answer revealed — New game to play again" : undefined
+                  won ? "You found Heidi!" : answerRevealed ? "Answer revealed - start a new game" : undefined
                 }
               />
             </div>
@@ -116,20 +127,27 @@ export default function HuntingHeidiGame() {
               type="button"
               onClick={handleGiveUp}
               disabled={roundLocked}
-              className="w-full rounded-brand border-2 border-ui-gray bg-white px-4 py-3 font-display text-sm text-ui-charcoal shadow-brand hover:bg-ui-cream disabled:cursor-not-allowed disabled:opacity-50 sm:w-auto"
+              className="flex w-full items-center justify-center gap-2 rounded-brand border-2 border-heidi-orange bg-amber-50 px-4 py-3 font-display text-base text-ui-charcoal shadow-brand hover:bg-amber-100 disabled:cursor-not-allowed disabled:opacity-50 md:w-auto"
             >
-              Reveal answer
+              <span className="rounded-full bg-white px-2 py-0.5 text-xs">?</span>
+              Show me
             </button>
             <button
               type="button"
               onClick={handleNewGame}
-              className="w-full rounded-brand border-2 border-ui-gray bg-white px-5 py-3 font-display shadow-brand hover:bg-ui-cream sm:w-auto"
+              className="flex w-full items-center justify-center gap-2 rounded-brand border-2 border-discovery-green bg-green-50 px-5 py-3 font-display text-base text-ui-charcoal shadow-brand hover:bg-green-100 md:w-auto"
             >
-              New game
+              <span className="rounded-full bg-white px-2 py-0.5 text-xs">GO</span>
+              Play again
             </button>
           </div>
         </div>
-      </div>
+      </section>
+
+      <section className="space-y-3">
+        <h2 className="font-display text-2xl text-ui-charcoal md:text-3xl">2. Look at the globe</h2>
+        <HeidiWorldView guesses={guesses} foundCountry={won || answerRevealed ? target : null} />
+      </section>
 
       <AnimatePresence>
         {won && (
@@ -178,9 +196,9 @@ export default function HuntingHeidiGame() {
                 />
               </div>
               <div className="text-left sm:text-center">
-                <p className="font-display text-xl text-amber-950">Here&apos;s where I was hiding</p>
+                <p className="font-display text-xl text-amber-950">Here is where I was hiding</p>
                 <p className="mt-1 text-amber-900">
-                  <strong>{target.name}</strong> — try a new game when you&apos;re ready!
+                  <strong>{target.name}</strong> - try a new game when you are ready!
                 </p>
               </div>
             </div>
@@ -189,20 +207,22 @@ export default function HuntingHeidiGame() {
       </AnimatePresence>
 
       <section>
-        <h2 className="font-display text-xl text-ui-charcoal">Your guesses</h2>
-        <p className="mt-1 text-sm text-ui-charcoal/70">
-          Closest to Heidi at the top — colours go from frosty blue (far) through yellow and orange to deep red
+        <h2 className="font-display text-2xl text-ui-charcoal md:text-3xl">3. Your guess list</h2>
+        <p className="mt-1 text-base text-ui-charcoal/70">
+          Closest to Heidi at the top - colors go from frosty blue (far) through yellow and orange to deep red
           (close).
         </p>
 
         {guesses.length === 0 ? (
-          <p className="mt-4 text-ui-charcoal/60">No guesses yet. Pick a country to begin!</p>
+          <p className="mt-4 rounded-brand border border-ui-gray bg-white px-4 py-3 text-ui-charcoal/70">
+            No guesses yet. Pick your first country above.
+          </p>
         ) : (
           <ul className="mt-4 space-y-2">
             {sorted.map((g) => (
               <li
                 key={g.country.code}
-                className="flex flex-wrap items-center gap-3 rounded-brand border border-ui-gray px-3 py-2 shadow-sm"
+                className="flex flex-wrap items-center gap-3 rounded-brand border border-ui-gray px-3 py-3 shadow-sm"
                 style={{ backgroundColor: distanceToHeatBg(g.distanceKm) }}
               >
                 <div className="relative h-10 w-14 shrink-0 overflow-hidden rounded border border-ui-gray bg-white">
@@ -214,9 +234,9 @@ export default function HuntingHeidiGame() {
                     sizes="56px"
                   />
                 </div>
-                <span className="min-w-0 flex-1 font-display text-ui-charcoal">{g.country.name}</span>
+                <span className="min-w-0 flex-1 font-display text-lg text-ui-charcoal">{g.country.name}</span>
                 <span
-                  className="font-mono text-sm font-bold tabular-nums"
+                  className="font-mono text-base font-bold tabular-nums"
                   style={{ color: distanceToHeatColor(g.distanceKm) }}
                 >
                   {g.distanceKm.toLocaleString()} km
@@ -233,8 +253,8 @@ export default function HuntingHeidiGame() {
       </section>
 
       <p className="text-center text-xs text-ui-charcoal/50">
-        Inspired by geography guessing games — distances use each country&apos;s reference point on the map, like a
-        big game of warmer / colder.
+        Inspired by geography guessing games - distances use each country&apos;s reference point on the map, like a
+        big game of warmer and colder.
       </p>
     </div>
   );

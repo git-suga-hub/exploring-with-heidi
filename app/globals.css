@@ -19,7 +19,11 @@
 
 html,body{
   height:100%;
-  background:var(--brand-cream);
+  background:
+    radial-gradient(circle at 18% 22%, rgba(27,183,242,0.12) 0, rgba(27,183,242,0) 160px),
+    radial-gradient(circle at 82% 14%, rgba(124,203,50,0.12) 0, rgba(124,203,50,0) 170px),
+    radial-gradient(circle at 88% 84%, rgba(244,90,40,0.1) 0, rgba(244,90,40,0) 180px),
+    var(--brand-cream);
   color:var(--brand-charcoal);
 }
 

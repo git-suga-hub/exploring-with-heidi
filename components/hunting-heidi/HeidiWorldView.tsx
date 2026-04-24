@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import dynamic from "next/dynamic";
 import { useState } from "react";
@@ -14,7 +14,7 @@ const HeidiGlobe = dynamic(() => import("@/components/hunting-heidi/HeidiGlobe")
       className="flex w-full items-center justify-center bg-[#1a2e42] text-sm text-cyan-100"
       style={{ minHeight: 280 }}
     >
-      Loading globe…
+      Loading globe...
     </div>
   ),
 });
@@ -47,13 +47,13 @@ export default function HeidiWorldView({
 
   return (
     <div className="w-full overflow-hidden rounded-brand border-2 border-explorer-blue bg-[#1a2e42] shadow-brand">
-      <div className="flex flex-wrap items-center gap-x-2 gap-y-1.5 border-b border-white/10 px-3 py-2">
+      <div className="flex flex-wrap items-center gap-x-2 gap-y-2 border-b border-white/10 px-3 py-3">
         <span className="mr-1 font-display text-xs uppercase tracking-wide text-cyan-100/60">View</span>
         <button
           type="button"
           onClick={() => setMode("globe")}
           className={cn(
-            "rounded-full px-3 py-1.5 font-display text-sm transition",
+            "rounded-full px-4 py-2 font-display text-sm transition",
             mode === "globe"
               ? "bg-explorer-blue text-white shadow-sm"
               : "bg-white/10 text-cyan-100/90 hover:bg-white/15"
@@ -65,7 +65,7 @@ export default function HeidiWorldView({
           type="button"
           onClick={() => setMode("map")}
           className={cn(
-            "rounded-full px-3 py-1.5 font-display text-sm transition",
+            "rounded-full px-4 py-2 font-display text-sm transition",
             mode === "map"
               ? "bg-explorer-blue text-white shadow-sm"
               : "bg-white/10 text-cyan-100/90 hover:bg-white/15"
@@ -86,7 +86,7 @@ export default function HeidiWorldView({
                 title={opt.hint}
                 onClick={() => setLabelMode(opt.value)}
                 className={cn(
-                  "rounded-full px-3 py-1.5 font-display text-sm transition",
+                  "rounded-full px-4 py-2 font-display text-sm transition",
                   labelMode === opt.value
                     ? "bg-heidi-orange text-white shadow-sm"
                     : "bg-white/10 text-cyan-100/90 hover:bg-white/15"
@@ -116,16 +116,16 @@ export default function HeidiWorldView({
       <p className="border-t border-white/10 px-3 py-2 text-center text-[11px] leading-snug text-cyan-100/75">
         {mode === "globe" ? (
           <>
-            Drag to rotate · Scroll to zoom · Hover a country to see its name.
-            {labelMode === "hard" && " No labels shown — test your knowledge!"}
+            Drag to rotate - scroll to zoom - hover a country to see its name.
+            {labelMode === "hard" && " No labels shown - test your knowledge!"}
             {labelMode === "easy" && " Country names shown on all countries."}
           </>
         ) : (
           <>
-            Drag to pan · Scroll to zoom · Double-click to reset.
+            Drag to pan - scroll to zoom - double-click to reset.
             {labelMode === "easy" && " Country names always visible."}
             {labelMode === "medium" && " Country names appear when you zoom in."}
-            {labelMode === "hard" && " No country names — expert mode!"}
+            {labelMode === "hard" && " No country names - expert mode!"}
           </>
         )}
       </p>

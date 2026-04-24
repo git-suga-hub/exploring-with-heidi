@@ -1,4 +1,4 @@
-"use client";
+﻿"use client";
 
 import { useMemo, useState } from "react";
 import cn from "classnames";
@@ -36,8 +36,8 @@ export default function CountrySearch({ disabled, excludedCodes, onPick, disable
 
   return (
     <div className="relative w-full">
-      <label className="sr-only" htmlFor="country-search">
-        Search for a country
+      <label className="mb-2 block font-display text-sm text-ui-charcoal" htmlFor="country-search">
+        Country
       </label>
       <input
         id="country-search"
@@ -63,15 +63,18 @@ export default function CountrySearch({ disabled, excludedCodes, onPick, disable
         }}
         placeholder={
           disabled
-            ? (disabledPlaceholder ?? "Round ended — start a new game to play again")
-            : "Type a country name…"
+            ? (disabledPlaceholder ?? "Round ended - start a new game to play again")
+            : "Try: Brazil"
         }
         className={cn(
-          "w-full rounded-brand border-2 border-ui-gray bg-white px-4 py-3 font-body text-ui-charcoal shadow-brand outline-none transition",
+          "w-full rounded-brand border-2 border-ui-gray bg-white px-4 py-3 text-xl font-body text-ui-charcoal shadow-brand outline-none transition",
           "placeholder:text-ui-charcoal/40 focus:border-explorer-blue",
           disabled && "cursor-not-allowed opacity-60"
         )}
       />
+      {!disabled && (
+        <p className="mt-2 text-xs text-ui-charcoal/65">Tap a name in the list.</p>
+      )}
 
       {open && !disabled && filtered.length > 0 && (
         <ul
@@ -86,7 +89,7 @@ export default function CountrySearch({ disabled, excludedCodes, onPick, disable
                   type="button"
                   disabled={taken}
                   className={cn(
-                    "flex w-full items-center gap-2 px-4 py-2 text-left text-sm hover:bg-ui-cream",
+                    "flex w-full items-center gap-2 px-4 py-3 text-left text-sm hover:bg-ui-cream",
                     taken && "cursor-not-allowed opacity-50"
                   )}
                   onMouseDown={(e) => e.preventDefault()}
