@@ -160,7 +160,7 @@ export default function HuntingHeidiGame() {
               <div className="relative h-12 w-16 shrink-0 overflow-hidden rounded border border-ui-gray bg-white shadow-sm">
                 <Image
                   src={`https://flagcdn.com/w80/${target.code}.png`}
-                  alt=""
+                  alt={`Flag of ${target.name}`}
                   fill
                   className="object-cover"
                   sizes="64px"
@@ -189,7 +189,7 @@ export default function HuntingHeidiGame() {
               <div className="relative h-12 w-16 shrink-0 overflow-hidden rounded border border-ui-gray bg-white shadow-sm">
                 <Image
                   src={`https://flagcdn.com/w80/${target.code}.png`}
-                  alt=""
+                  alt={`Flag of ${target.name}`}
                   fill
                   className="object-cover"
                   sizes="64px"
@@ -228,7 +228,7 @@ export default function HuntingHeidiGame() {
                 <div className="relative h-10 w-14 shrink-0 overflow-hidden rounded border border-ui-gray bg-white">
                   <Image
                     src={`https://flagcdn.com/w80/${g.country.code}.png`}
-                    alt=""
+                    alt={`Flag of ${g.country.name}`}
                     fill
                     className="object-cover"
                     sizes="56px"

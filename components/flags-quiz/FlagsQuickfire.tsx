@@ -113,7 +113,7 @@ export default function FlagsQuickfire() {
           <div className="relative aspect-[3/2] w-full bg-ui-gray/20">
             <Image
               src={getFlagImageUrl(current.code, 640)}
-              alt=""
+              alt={`Flag of ${current.name}`}
               fill
               className="object-contain"
               sizes="(max-width: 768px) 100vw, 448px"

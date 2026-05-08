@@ -14,8 +14,8 @@ const tabs: { id: Mode; label: string; description: string }[] = [
   { id: "memory", label: "Connect flags", description: "Connect each country text to the right flag" },
 ];
 
-export default function FlagsQuizClient() {
-  const [mode, setMode] = useState<Mode>("quickfire");
+export default function FlagsQuizClient({ initialMode = "quickfire" }: { initialMode?: Mode }) {
+  const [mode, setMode] = useState<Mode>(initialMode);
 
   return (
     <div>

@@ -1,5 +1,5 @@
 import { permanentRedirect } from "next/navigation";
 
-export default function FlagsQuizPage() {
+export default function FlagsLearnPage() {
   permanentRedirect("/flags");
 }

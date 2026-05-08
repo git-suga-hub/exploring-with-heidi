@@ -1,4 +1,4 @@
-﻿import "./globals.css";
+import "./globals.css";
 import type { Metadata } from "next";
 import Header from "@/components/Header";
 import SiteFooter from "@/components/SiteFooter";
@@ -16,33 +16,44 @@ const display = Fredoka({
   weight: ["400", "500", "700"],
 });
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL || "http://localhost:3000";
+const siteUrl = "https://exploringwithheidi.com";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
   title: {
-    default: "Exploring with Heidi - Family Geography Adventures",
+    default: "Exploring with Heidi | Geography Games for Kids",
     template: "%s | Exploring with Heidi",
   },
   description:
-    "Playful geography adventures for children and families: flags, capitals, maps, and Hunting Heidi.",
+    "Exploring with Heidi is a family-friendly geography games website for kids with flags, capitals, maps, and educational world challenges.",
+  alternates: {
+    canonical: "/",
+  },
   icons: {
     icon: "/branding/app-icon.png",
   },
   openGraph: {
-    title: "Exploring with Heidi - Family Geography Adventures",
+    title: "Exploring with Heidi | Geography Games for Kids",
     description:
-      "Playful geography adventures for children and families. Explore flags, capitals, maps, and more.",
+      "Educational geography games for kids: learn world flags, practice capital cities, and play family-friendly map challenges.",
     type: "website",
-    url: siteUrl,
+    url: "/",
+    siteName: "Exploring with Heidi",
     images: [
       {
         url: "/branding/logo-badge.png",
         width: 1200,
         height: 630,
-        alt: "Exploring with Heidi",
+        alt: "Exploring with Heidi geography games for kids",
       },
     ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Exploring with Heidi | Geography Games for Kids",
+    description:
+      "Learn geography through playful flags, capitals, and map games made for children and families.",
+    images: ["/branding/logo-badge.png"],
   },
 };
 

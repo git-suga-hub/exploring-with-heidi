@@ -2,9 +2,9 @@
 
 const nav = [
   { href: "/", label: "Home" },
-  { href: "/flags-quiz", label: "Flags" },
-  { href: "/capitals-quiz", label: "Capitals" },
-  { href: "/map-jigsaw", label: "Jigsaw" },
+  { href: "/flags", label: "Flags" },
+  { href: "/capitals", label: "Capitals" },
+  { href: "/jigsaw", label: "Jigsaw" },
   { href: "/hunting-heidi", label: "Hunting Heidi" },
 ] as const;
 
