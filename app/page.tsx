@@ -107,6 +107,15 @@ export default function Home() {
 
         <div className="grid gap-5 md:grid-cols-2">
           <GameCard
+            href="/capital-reveal"
+            title="Capital Reveal"
+            description="See a flag and country first, guess together, then reveal the capital city."
+            status="New"
+            icon={<span aria-hidden>🏳️</span>}
+            className="bg-gradient-to-b from-white to-indigo-50"
+          />
+
+          <GameCard
             href="/flags-quiz"
             title="Flags Quiz"
             description="Flip cards, quickfire rounds, and memory games to learn flags from around the world."
