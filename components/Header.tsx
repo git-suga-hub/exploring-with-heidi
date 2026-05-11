@@ -2,10 +2,9 @@
 import Link from "next/link";
 
 const links = [
-  { href: "/flags", label: "Flags" },
-  { href: "/capitals", label: "Capitals" },
-  { href: "/jigsaw", label: "Jigsaw" },
-  { href: "/hunting-heidi", label: "Hunting Heidi" },
+  { href: "/learn", label: "Learn" },
+  { href: "/games", label: "Games" },
+  { href: "/hunting-heidi", label: "Find Heidi" },
 ] as const;
 
 export default function Header() {
@@ -30,7 +29,7 @@ export default function Header() {
             </div>
           </Link>
 
-          <nav className="grid grid-cols-2 gap-2 sm:flex sm:flex-wrap sm:justify-end" aria-label="Main">
+          <nav className="grid grid-cols-3 gap-2 sm:flex sm:flex-wrap sm:justify-end" aria-label="Main">
             {links.map((item) => (
               <Link
                 key={item.href}
@@ -46,3 +45,4 @@ export default function Header() {
     </header>
   );
 }
+

@@ -2,10 +2,9 @@
 
 const nav = [
   { href: "/", label: "Home" },
-  { href: "/flags", label: "Flags" },
-  { href: "/capitals", label: "Capitals" },
-  { href: "/jigsaw", label: "Jigsaw" },
-  { href: "/hunting-heidi", label: "Hunting Heidi" },
+  { href: "/learn", label: "Learn" },
+  { href: "/games", label: "Games" },
+  { href: "/hunting-heidi", label: "Find Heidi" },
 ] as const;
 
 export default function SiteFooter() {
@@ -40,3 +39,4 @@ export default function SiteFooter() {
     </footer>
   );
 }
+

@@ -4,6 +4,8 @@ const siteUrl = "https://exploringwithheidi.com";
 
 const routes = [
   "/",
+  "/learn",
+  "/games",
   "/flags",
   "/capitals",
   "/hunting-heidi",
