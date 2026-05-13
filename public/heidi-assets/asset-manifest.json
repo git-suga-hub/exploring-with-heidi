@@ -1,0 +1,252 @@
+[
+  {
+    "file": "hero-main-heidi-world-landmarks.png",
+    "crop_box": [
+      0,
+      0,
+      755,
+      765
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "logo-text-exploring-with-heidi.png",
+    "crop_box": [
+      20,
+      20,
+      310,
+      185
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "heidi-full-body-hero.png",
+    "crop_box": [
+      320,
+      70,
+      635,
+      615
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "avatar-happy.png",
+    "crop_box": [
+      762,
+      55,
+      900,
+      205
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "avatar-curious.png",
+    "crop_box": [
+      935,
+      55,
+      1072,
+      205
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "avatar-excited.png",
+    "crop_box": [
+      1095,
+      55,
+      1238,
+      205
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "pose-hi-there.png",
+    "crop_box": [
+      770,
+      300,
+      890,
+      505
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "pose-lets-go.png",
+    "crop_box": [
+      935,
+      300,
+      1050,
+      505
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "pose-look-over-there.png",
+    "crop_box": [
+      1090,
+      300,
+      1235,
+      505
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "reaction-great-job.png",
+    "crop_box": [
+      770,
+      555,
+      895,
+      745
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "reaction-lets-explore.png",
+    "crop_box": [
+      930,
+      555,
+      1065,
+      745
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "reaction-you-found-it.png",
+    "crop_box": [
+      1090,
+      555,
+      1235,
+      745
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "logo-icon-circle.png",
+    "crop_box": [
+      35,
+      790,
+      175,
+      942
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "logo-sticker-wide.png",
+    "crop_box": [
+      185,
+      790,
+      380,
+      942
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "logo-explorer-badge.png",
+    "crop_box": [
+      380,
+      795,
+      535,
+      945
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "badge-flag-finder.png",
+    "crop_box": [
+      615,
+      803,
+      735,
+      925
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "badge-capital-champ.png",
+    "crop_box": [
+      740,
+      803,
+      858,
+      925
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "badge-map.png",
+    "crop_box": [
+      862,
+      803,
+      982,
+      925
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "badge-world-explorer.png",
+    "crop_box": [
+      988,
+      803,
+      1106,
+      925
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "badge-culture-discoverer.png",
+    "crop_box": [
+      1112,
+      803,
+      1230,
+      925
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "journey-card-pick-place.png",
+    "crop_box": [
+      20,
+      1000,
+      250,
+      1202
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "journey-card-great-wall.png",
+    "crop_box": [
+      258,
+      1000,
+      489,
+      1202
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "journey-card-paris.png",
+    "crop_box": [
+      497,
+      1000,
+      728,
+      1202
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "journey-card-waterfall.png",
+    "crop_box": [
+      736,
+      1000,
+      974,
+      1202
+    ],
+    "suggested_use": ""
+  },
+  {
+    "file": "journey-card-passport.png",
+    "crop_box": [
+      982,
+      1000,
+      1235,
+      1202
+    ],
+    "suggested_use": ""
+  }
+]

@@ -15,16 +15,25 @@ export default function Header() {
           <Link href="/" className="flex min-w-0 items-center gap-3 rounded-2xl bg-white/85 px-3 py-2 shadow-sm">
             <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-2xl border border-explorer-blue/30 bg-white">
               <Image
-                src="/branding/heidi-mascot.png"
+                src="/heidi-assets/logo-icon-circle.png"
                 alt="Heidi mascot"
                 fill
-                className="object-cover"
+                className="object-contain"
                 sizes="48px"
                 priority
               />
             </div>
             <div className="min-w-0">
-              <p className="truncate font-display text-xl leading-tight text-ui-charcoal">Exploring with Heidi</p>
+              <div className="relative h-12 w-52 max-w-full">
+                <Image
+                  src="/heidi-assets/logo-text-exploring-with-heidi.png"
+                  alt="Exploring With Heidi"
+                  fill
+                  className="object-contain object-left"
+                  sizes="208px"
+                  priority
+                />
+              </div>
               <p className="truncate text-sm text-ui-charcoal/75">Family geography adventures</p>
             </div>
           </Link>
