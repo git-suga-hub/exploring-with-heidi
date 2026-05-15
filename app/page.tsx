@@ -153,7 +153,7 @@ export default function Home() {
       <RouteDivider />
 
       <section className="container relative mt-6" aria-label="Adventure modes">
-        <div className="relative overflow-hidden rounded-[2rem] border-2 border-white/60 bg-[linear-gradient(145deg,rgba(124,214,207,0.72),rgba(142,218,245,0.65),rgba(255,240,204,0.72))] p-5 shadow-brand sm:p-7">
+        <div className="relative overflow-visible rounded-[2rem] border-2 border-white/60 bg-[linear-gradient(145deg,rgba(124,214,207,0.72),rgba(142,218,245,0.65),rgba(255,240,204,0.72))] p-5 shadow-brand sm:p-7">
           <div className="mb-5 grid gap-4 lg:grid-cols-[minmax(0,1fr)_auto] lg:items-center">
             <div>
               <h2 className="font-display text-3xl text-ui-charcoal sm:text-4xl">Adventure Modes</h2>
